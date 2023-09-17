@@ -1,0 +1,30 @@
+{% extends 'layout.html' %}
+
+
+{% block js %}
+    <script type="text/babel" src='/static/js/login.js'></script>
+{% endblock js %}
+
+{% block body %}
+    <form action='/login' method="POST" id="loginform">
+            <input type="text" name="username" id="logniusername">
+            <input type="password" name="password" id="loginpassword">
+            <input type="submit">
+    </form>
+
+<hr>
+    
+    <form action="/register" method="POST" id="registerform">
+        <label for="username"> username : </label>
+        <input type="text" name="username" id="username">
+        <label for="email">email:</label>
+        <input type="email" name="email" id="email">
+        <label for="password">password:</label>
+        <input type="password" name="password" id="password">
+        <label for="repassword">repassword:</label>
+        <input type="password" name="repassword" id="repassword">
+        
+        
+    </form>
+    <button onclick="loginFromCheacker()"> signup </button><button onclick="test()">test</button>
+{% endblock body %}
