@@ -75,7 +75,29 @@ def pull_user(info):
             if (user["id"]==info) or (user["email"] == info ) or (user["username"] == info ):
                  return user
         return False
-    
+
+def pull_completed_tasks(userid):
+    sendback = []
+    with open("./databases/02_tasks.json","r") as f: 
+        try:
+            for task in json.load(f)[userid]["tasks"]:
+                if task["completed"]:
+                    sendback.append(task)
+            return sendback 
+        except:
+            return False
+        
+def pull_notcompleted_tasks(userid):
+    sendback = []
+    with open("./databases/02_tasks.json","r") as f: 
+        try:
+            for task in json.load(f)[userid]["tasks"]:
+                if not task["completed"]:
+                    sendback.append(task)
+            return sendback 
+        except:
+            return False
+
 def pull_tasks(userid:str):
     """
     argument -- userid

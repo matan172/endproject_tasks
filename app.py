@@ -69,17 +69,37 @@ def register():
         redirect("/")
 
 
+# --------------- crud -----------------------
+
+@app.route('/deletetask', methods=["POST","GET"])
+def removeTask():
+    if request.method == "POST":
+        id = request.form.get("taskid")
+        if id:
+            db.remove_task(user_id=session["id"],task_id=id)
+    return "Task as been removed "
 # --------------- api ----------------------------
+@app.route('/completed', methods=["POST"])
+def completed():
+    if request.method == "POST":
+        return {"tasks":db.pull_completed_tasks(session["id"])}
+    
+@app.route('/notcompleted', methods=["POST"])
+def notcompleted():
+    if request.method == "POST":
+        return {"tasks":db.pull_notcompleted_tasks(session["id"])}
 
-
-@app.route('/pulltasks/<text>')
-def pulltasks(text):
-    tasks = db.pull_tasks(session["id"])
-    sendBack = []
-    for task in tasks:
-        if (text in task["title"]) or (text in task["desc"]):
-            sendBack.append(task)
-    return {'tasks':sendBack}
+@app.route('/pulltasks/', methods=["GET","POST"])
+def pulltasks():
+    if request.method == "POST":
+        text = request.json["text"]
+        print(text)
+        tasks = db.pull_tasks(session["id"])
+        sendBack = []
+        for task in tasks:
+            if (text in task["title"]) or (text in task["desc"]):
+                sendBack.append(task)
+        return {'tasks':sendBack}
 
 # ----------- production runserver ---------------
 if __name__ == "__main__":

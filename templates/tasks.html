@@ -12,8 +12,9 @@
 {% block body %}
     
     <div class="tasksnav">
-        <button onclick="showtasks()">completed tasks</button>
-        <button onclick="showcompleted()">tasks</button>
+        <button onclick="showtasks()"> tasks</button>
+        <button onclick="showcompleted()">completed tasks</button>
+        <button onclick="newtask()">new task</button>
         
 
     </div>
@@ -25,5 +26,5 @@
 
     </div>
     <hr>
-    <div id="taskboard"></div>
+    <div id="taskboard" onload="showtasks()"></div>
 {% endblock body %}

@@ -1,5 +1,3 @@
-const taskBoard = document.getElementById("taskboard")
-const taskroot = ReactDOM.createRoot(taskBoard)
 
 
 function taskcard (task) {
@@ -9,7 +7,7 @@ function taskcard (task) {
         color = "yellow"
     }
     return (
-        <div className="tasks" id={task.id} style={{backgroundcolor:color}}>
+        <div className="tasks" id={task.id} style={{backgroundColor: color}}>
             <div className="tasktitle">
                 <h3>{task.title}</h3>
 
@@ -19,7 +17,7 @@ function taskcard (task) {
                 {task.desc}
             </div>
             <div id="options">
-                <form action="/deletetask" method="POST">
+                {/* <form action="/deletetask" method="POST">
                     <input type="hidden" value="task.id" name="taskid" />
                     <input type="submit" value="delete" />
 
@@ -27,7 +25,10 @@ function taskcard (task) {
                 <form action="/completetask" method="POST">
                     <input type="hidden" value="task.id" name="taskid" />
                     <input type="submit" value="complete" />
-                </form>
+                </form> 
+                 */}
+            
+                
             </div>
         </div>
     )
@@ -36,30 +37,61 @@ function taskcard (task) {
     
 }
 
-function showtasks () {
+function Showtasks () {
+    const [tasks, settasks] = React.useState([]);
+    React.useEffect (()=> {axios({method: 'POST',url: '/notcompleted',data: {}}).then((res) => settasks(res.data.tasks))},[]);
+    
+    
+    return tasks.map((task) => {
+        return taskcard(task)
+    })
+        
 
 }
 
 
+function showtasks () {
+    const taskBoard = document.getElementById("taskboard")
+    const taskroot = ReactDOM.createRoot(taskBoard)
+    taskroot.render(<Showtasks />)
+}
+
+
+function Showcompletedtasks () {
+    const [tasks, settasks] = React.useState([]);
+    React.useEffect (()=> {axios({method: 'POST',url: '/completed',data: {}}).then((res) => settasks(res.data.tasks))},[]);
+    
+    
+    return tasks.map((task) => {
+        return taskcard(task)
+    })
+
+}  
+
 function showcompleted() {
+    const taskBoard = document.getElementById("taskboard")
+    const taskroot = ReactDOM.createRoot(taskBoard)
+    taskroot.render(<Showcompletedtasks />)
     
 }
 
-function hideoptions() {
-    console.log("hide")
-}
-function showoptions() {
-    console.log("showoptions")
-}
+const removetask = (task) => {
+    axios({
+        method: 'post',
+        url: '/deletetask',
+        data: {"id": task.id}
+    })
 
+}
 function Filtertasksfunc () {
     const [tasks, settasks] = React.useState([]);
     var text = document.getElementById("search").value;
-    React.useEffect (()=> {axios.get('/pulltasks/'+text).then((res) => settasks(res.data.tasks))},[]);
+    React.useEffect (()=> {axios({method: 'post',url: '/pulltasks',data: {"text":text}}).then((res) => settasks(res.data.tasks))},[]);
     
-    
+    if (tasks == []) {
+        showtasks()
+    }
     console.log(tasks);
-    
     return tasks.map((task) => {
         return taskcard(task)
     })
@@ -72,5 +104,9 @@ function filtertasks() {
     const taskroot = ReactDOM.createRoot(taskBoard)
     taskroot.render(<Filtertasksfunc />)
 
-}
+};
 
+
+const taskBoard = document.getElementById("taskboard");
+const taskroot = ReactDOM.createRoot(taskBoard);
+taskroot.render(<Showtasks />)
