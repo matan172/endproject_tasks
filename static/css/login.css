@@ -1,0 +1,13 @@
+.login {
+    padding: 50px;
+    display: block;
+    height: 0px;
+}
+.register {
+    padding: 50px;
+    display: block;
+}
+
+#registerform {
+    display: block;
+}

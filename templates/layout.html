@@ -7,14 +7,30 @@
     <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    {% block js %}
+    <script src="/static/js/layout.js" type="text/babel"></script>
+    <link rel="stylesheet" href="/static/css/layout.css">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    {% block css %}
         
-    {% endblock js %}
+    {% endblock css %}
+    
 </head>
 <body>
+    <div id="navbar">
+        <span id="homeButton"><a href="/"><button>home</button></a> </span>
+        {% if session %}     
+        <img src="" alt="">
+        <span id="tasks"> <a href="/tasks"><button>tasks</button></a></span>
+        <span id="logout"><button onclick="logout()">logout</button></a></span>
+        {% endif %}
+    </div>
+    <div id="main">
     {% block body %}
         
     {% endblock body %}
-    
+    </div>
+    {% block js %}
+        
+    {% endblock js %}
 </body>
 </html>

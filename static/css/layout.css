@@ -1,0 +1,21 @@
+#navbar {
+    background-color: grey;
+    display: block;
+    border: 1px solid;
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+}
+
+#funcbar {
+    height: 30px;
+    border: 1px solid ;
+}
+#main {
+    background-color: lightcoral;
+    width: 85%;
+    min-height: 1000px;
+    margin-left: 7.5%;
+    margin-right: 7.5%;
+    display: block;
+}

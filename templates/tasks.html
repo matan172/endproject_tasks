@@ -1,0 +1,29 @@
+{% extends 'layout.html' %}
+
+{% block js %}
+    <script src="/static/js/tasks.js" type="text/babel"></script>
+{% endblock js %}
+
+{% block css %}
+    <link rel="stylesheet" href="/static/css/tasks.css">
+    
+{% endblock css %}
+
+{% block body %}
+    
+    <div class="tasksnav">
+        <button onclick="showtasks()">completed tasks</button>
+        <button onclick="showcompleted()">tasks</button>
+        
+
+    </div>
+    <hr>
+    <div class="funcs">
+        <label for="search">look for task:</label>
+        <input type="text" name="search" id="search" onkeyup="filtertasks()" onmouseleave="">
+
+
+    </div>
+    <hr>
+    <div id="taskboard"></div>
+{% endblock body %}

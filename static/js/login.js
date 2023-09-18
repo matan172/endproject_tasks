@@ -33,4 +33,4 @@ function loginFromCheacker () {
     }
     document.getElementById('registerform').submit()
 
- }
+}

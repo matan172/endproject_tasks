@@ -1,30 +1,35 @@
 {% extends 'layout.html' %}
 
+{% block css %}
+    <link rel="stylesheet" href="/static/css/login.css">
+{% endblock css %}
 
 {% block js %}
     <script type="text/babel" src='/static/js/login.js'></script>
 {% endblock js %}
 
 {% block body %}
-    <form action='/login' method="POST" id="loginform">
-            <input type="text" name="username" id="logniusername">
-            <input type="password" name="password" id="loginpassword">
-            <input type="submit">
-    </form>
-
-<hr>
+    <div class="login">
+        <h1>login : </h1>
+        <form action='/login' method="POST" id="loginform">
+            <input type="text" name="username" id="logniusername" placeholder="username">
+            <input type="password" name="password" id="loginpassword" placeholder="password">
+            <input type="submit" value="login">
+        </form>
+    </div>
+    <div class="register">
+        <h1> register:</h1>
+        <form action="/register" method="POST" id="registerform">
+            <label for="username"> username : </label>
+            <input type="text" name="username" id="username">
+            <label for="email">email:</label>
+            <input type="email" name="email" id="email">
+            <label for="password">password:</label>
+            <input type="password" name="password" id="password">
+            <label for="repassword">repassword:</label>
+            <input type="password" name="repassword" id="repassword">
+        
+        
+    </form><button onclick="loginFromCheacker()"> signup </button></div>
     
-    <form action="/register" method="POST" id="registerform">
-        <label for="username"> username : </label>
-        <input type="text" name="username" id="username">
-        <label for="email">email:</label>
-        <input type="email" name="email" id="email">
-        <label for="password">password:</label>
-        <input type="password" name="password" id="password">
-        <label for="repassword">repassword:</label>
-        <input type="password" name="repassword" id="repassword">
-        
-        
-    </form>
-    <button onclick="loginFromCheacker()"> signup </button><button onclick="test()">test</button>
 {% endblock body %}

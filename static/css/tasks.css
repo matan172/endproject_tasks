@@ -1,0 +1,39 @@
+.tasksnav {
+    padding: 50px;
+    display: inline;
+    margin-top: 10px;
+
+
+}
+
+.funcs {
+    padding-left: 20px;
+}
+
+
+hr {
+    width: 90%;
+}
+
+#taskboard {
+    display: grid;
+}
+
+.tasks {
+    border: 1px solid;
+    width: 20%;
+    border-radius: 10px;
+    height: 200px;
+
+}
+.tasktitle {
+    display: flex;
+    justify-content: center;
+    padding: 0;
+}
+
+#options{
+    margin-bottom: -30px;
+    padding: 5px;
+    display: inline;
+}

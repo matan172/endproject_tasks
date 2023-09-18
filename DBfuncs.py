@@ -84,7 +84,7 @@ def pull_tasks(userid:str):
     
     with open("./databases/02_tasks.json","r") as f: 
         try:
-            return json.load(f)[userid]
+            return json.load(f)[userid]["tasks"]
         except:
             return False
 
