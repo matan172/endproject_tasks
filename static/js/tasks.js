@@ -13,20 +13,27 @@ function taskcard (task) {
 
             </div>
                <hr />
-            <div className="task desc">
+            <div className="taskdesc">
                 {task.desc}
             </div>
+            <hr />
+            <div className="taskdate">
+                {task.date}
+
+            </div>
             <div id="options">
-                {/* <form action="/deletetask" method="POST">
-                    <input type="hidden" value="task.id" name="taskid" />
+                 <form action="/taskop" method="POST">
+                    <input type="hidden" value={task.id} name="taskid" />
+                    <input type="hidden" value="delete" name="option" /> 
                     <input type="submit" value="delete" />
 
                 </form>
-                <form action="/completetask" method="POST">
-                    <input type="hidden" value="task.id" name="taskid" />
+                <form action="/taskop" method="POST">
+                    <input type="hidden" value={task.id} name="taskid" />
+                    <input type="hidden" value="complete" name="option" />
                     <input type="submit" value="complete" />
                 </form> 
-                 */}
+                
             
                 
             </div>
@@ -36,6 +43,26 @@ function taskcard (task) {
 
     
 }
+
+
+function Newtaskcard () {
+    return (
+        <div className="newtask">
+            <form action="/newtask" method="post" id="newtask">
+                <label htmlFor="title">:task title</label>
+                <input type="text" name="title" id="formtitle"/>
+                <label htmlFor="desc">desc:</label>
+                <input type="text" name="desc" id="formdesc"/>
+                <input type="submit" value="add new task" />
+                
+
+
+            </form>
+        </div>
+    )
+}
+
+
 
 function Showtasks () {
     const [tasks, settasks] = React.useState([]);
@@ -56,11 +83,26 @@ function showtasks () {
     taskroot.render(<Showtasks />)
 }
 
+function quete () {
+   axios.get('https://zenquotes.io/api/random').then((res) => {let q =  res.data[0].h})
+   return (
+        <div>
+            <p>you have completed nothing</p>
+            {q}
 
+        </div>
+   )
+
+}
 function Showcompletedtasks () {
     const [tasks, settasks] = React.useState([]);
     React.useEffect (()=> {axios({method: 'POST',url: '/completed',data: {}}).then((res) => settasks(res.data.tasks))},[]);
-    
+
+    if (tasks.lenght == 0 ) {return (
+        <div>
+            <h1>you have completed nothing ! </h1>
+        </div>
+    )}
     
     return tasks.map((task) => {
         return taskcard(task)
@@ -105,6 +147,14 @@ function filtertasks() {
     taskroot.render(<Filtertasksfunc />)
 
 };
+
+
+function Clicknewtask() {
+    const taskBoard = document.getElementById("taskboard")
+    const taskroot = ReactDOM.createRoot(taskBoard)
+    taskroot.render(<Newtaskcard />)
+
+}
 
 
 const taskBoard = document.getElementById("taskboard");

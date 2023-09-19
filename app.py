@@ -1,6 +1,7 @@
 from flask import Flask,redirect,render_template,session,request
 from flask_session import Session
 import DBfuncs as db
+import datetime
 # ------------------------------- #
 app = Flask(__name__)
 app.config["SESSION_PERMANENT"] = True 
@@ -71,13 +72,16 @@ def register():
 
 # --------------- crud -----------------------
 
-@app.route('/deletetask', methods=["POST","GET"])
-def removeTask():
+@app.route('/taskop', methods=["POST","GET"])
+def task_options():
     if request.method == "POST":
-        id = request.form.get("taskid")
-        if id:
-            db.remove_task(user_id=session["id"],task_id=id)
-    return "Task as been removed "
+        option = request.form["option"] 
+        taskid = int(request.form["taskid"])
+        if option == "delete":
+            db.remove_task(user_id=session["id"],task_id=taskid)
+        elif option == "complete":
+            db.complete_task(userid=session["id"], taskid=taskid)
+    return redirect("/tasks")
 # --------------- api ----------------------------
 @app.route('/completed', methods=["POST"])
 def completed():
@@ -88,6 +92,19 @@ def completed():
 def notcompleted():
     if request.method == "POST":
         return {"tasks":db.pull_notcompleted_tasks(session["id"])}
+    
+
+@app.route('/newtask', methods=["POST","GET"])
+def newtask():
+    if request.method == "POST":
+
+        title = request.form.get ("title")
+        desc = request.form.get ("desc")
+        task = {"title":title,"desc":desc}
+        db.append_task(task=task,user_id=session["id"])
+        return redirect("/tasks")
+
+     
 
 @app.route('/pulltasks/', methods=["GET","POST"])
 def pulltasks():

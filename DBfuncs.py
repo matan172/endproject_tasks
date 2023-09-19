@@ -1,4 +1,5 @@
 import json
+import datetime
 
 # writing to json file
 def write_json(data, filename):
@@ -29,6 +30,7 @@ def append_user(user:dict):
         temp = data["users"]
         data["index"]+=1
         user["id"] = str(data["index"])
+        
         temp.append(user)
         write_json(data=data,filename=file_name)
     
@@ -52,6 +54,8 @@ def append_task(task:dict,user_id:str):
             data[user_id] = {"tasks":[],"index":0}
             user_data = data[user_id]["tasks"]
         task["id"] = data[user_id]["index"]
+        task["completed"] = False
+        task['date'] = datetime.datetime.now().strftime("%I:%M%p on %B %d, %Y")
         data[user_id]["index"]+=1
         user_data.append(task)
         write_json(data=data,filename=file_name)
@@ -122,12 +126,22 @@ def remove_task(user_id,task_id):
     with open("./databases/02_tasks.json","r") as f:
         data = json.load(f)
         user_tasks = data[user_id]["tasks"]
-        enu = enumerate(user_tasks)
         for task in user_tasks:
             if task["id"] == task_id:
                 user_tasks.remove(task)
                 print("remove")
         write_json(filename="./databases/02_tasks.json",data=data)
+
+def complete_task(userid, taskid):
+    with open ("./databases/02_tasks.json","r") as f:
+        data = json.load(f)
+        user_tasks = data[userid]["tasks"]
+        for task in user_tasks: 
+            if task["id"] == taskid:
+                task["completed"] = True
+        write_json(filename="./databases/02_tasks.json",data=data)
+
+ 
                 
 
 test_task ={"title":"this is tile", "date":"this is a date", "desc":"this is what i need to do", "completed":False}

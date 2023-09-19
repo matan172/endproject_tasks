@@ -36,5 +36,5 @@ hr {
 #options{
     margin-bottom: -30px;
     padding: 5px;
-    display: inline;
+    display: -moz-grid-line
 }
