@@ -1,6 +1,7 @@
 import json
 import datetime
 
+
 # writing to json file
 def write_json(data, filename):
     """writes data to json file
@@ -60,9 +61,6 @@ def append_task(task:dict,user_id:str):
         user_data.append(task)
         write_json(data=data,filename=file_name)
 
-        
-test_user = {"username":"test","password":"yesy"}
-
 
 def pull_user(info):
     """get user {username ,password , id}
@@ -80,6 +78,7 @@ def pull_user(info):
                  return user
         return False
 
+
 def pull_completed_tasks(userid):
     sendback = []
     with open("./databases/02_tasks.json","r") as f: 
@@ -90,6 +89,7 @@ def pull_completed_tasks(userid):
             return sendback 
         except:
             return False
+        
         
 def pull_notcompleted_tasks(userid):
     sendback = []
@@ -142,15 +142,3 @@ def complete_task(userid, taskid):
         write_json(filename="./databases/02_tasks.json",data=data)
 
  
-                
-
-test_task ={"title":"this is tile", "date":"this is a date", "desc":"this is what i need to do", "completed":False}
-test_user = {"username":"username","password":"pass"}
-
-
-# append_user(test_user)
-
-# print(pull_user('1'))
-# append_task(task=test_task,user_id="1")
-
-remove_task(user_id="1", task_id=1) 

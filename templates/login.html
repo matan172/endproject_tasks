@@ -17,6 +17,7 @@
             <input type="submit" value="login">
         </form>
     </div>
+
     <div class="register">
         <h1> register:</h1>
         <form action="/register" method="POST" id="registerform">
@@ -26,10 +27,10 @@
             <input type="email" name="email" id="email">
             <label for="password">password:</label>
             <input type="password" name="password" id="password">
-            <label for="repassword">repassword:</label>
+            <label for="repassword">re-enter password:</label>
             <input type="password" name="repassword" id="repassword">
         
         
-    </form><button onclick="loginFromCheacker()"> signup </button></div>
+    </form><button onclick="loginFromCheacker()" id="signup"> signup </button></div>
     
 {% endblock body %}

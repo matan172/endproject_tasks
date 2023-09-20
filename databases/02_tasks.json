@@ -1,21 +1,6 @@
 {
     "1": {
-        "tasks": [
-            {
-                "title": "learn to css",
-                "desc": "you are so bad",
-                "id": 7,
-                "completed": false,
-                "date": "03:58PM on September 19, 2023"
-            },
-            {
-                "title": "div",
-                "desc": "learn to center div",
-                "id": 8,
-                "completed": false,
-                "date": "03:58PM on September 19, 2023"
-            }
-        ],
-        "index": 9
+        "tasks": [],
+        "index": 17
     }
 }

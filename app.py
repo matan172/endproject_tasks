@@ -2,7 +2,11 @@ from flask import Flask,redirect,render_template,session,request
 from flask_session import Session
 import DBfuncs as db
 import datetime
+
+
 # ------------------------------- #
+
+
 app = Flask(__name__)
 app.config["SESSION_PERMANENT"] = True 
 app.config["SESSION_TYPE"] = "filesystem"
@@ -12,7 +16,9 @@ Session(app)
 def homestr(string):
     return "<h1>" + string + "<a href='/' > home </a> </h1>" 
 
-#--------------------main routes----------------------------#
+#------
+# --------------main routes----------------------------#
+
 
 @app.route('/')
 def home():
@@ -22,7 +28,7 @@ def home():
 @app.route('/tasks')
 def tasks():
     if session.get("id"):
-        return render_template("tasks.html", session=session)
+        return render_template("tasks.html", session=session.get("id"))
     else: 
         return redirect("/login")
 
@@ -72,6 +78,7 @@ def register():
 
 # --------------- crud -----------------------
 
+
 @app.route('/taskop', methods=["POST","GET"])
 def task_options():
     if request.method == "POST":
@@ -82,16 +89,25 @@ def task_options():
         elif option == "complete":
             db.complete_task(userid=session["id"], taskid=taskid)
     return redirect("/tasks")
+
+
 # --------------- api ----------------------------
+
+
 @app.route('/completed', methods=["POST"])
 def completed():
     if request.method == "POST":
         return {"tasks":db.pull_completed_tasks(session["id"])}
-    
+    else: 
+        return redirect("/")
+
+
 @app.route('/notcompleted', methods=["POST"])
 def notcompleted():
     if request.method == "POST":
         return {"tasks":db.pull_notcompleted_tasks(session["id"])}
+    else: 
+        return redirect("/")
     
 
 @app.route('/newtask', methods=["POST","GET"])
@@ -103,9 +119,10 @@ def newtask():
         task = {"title":title,"desc":desc}
         db.append_task(task=task,user_id=session["id"])
         return redirect("/tasks")
+    else: 
+        return redirect("/")
 
      
-
 @app.route('/pulltasks/', methods=["GET","POST"])
 def pulltasks():
     if request.method == "POST":
@@ -117,7 +134,12 @@ def pulltasks():
             if (text in task["title"]) or (text in task["desc"]):
                 sendBack.append(task)
         return {'tasks':sendBack}
+    else:
+        return redirect("/")
+    
 
 # ----------- production runserver ---------------
+
+
 if __name__ == "__main__":
     app.run(debug=True)

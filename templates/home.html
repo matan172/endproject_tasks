@@ -4,6 +4,12 @@
 
 {% block body %}
     <h1>welcome!</h1>
-    <h2>this is a school project built by matan shani</h2>
-    <p>*to start navigating in the app you must <a href="/login">login</a>*</p>
+    <h2>this is a school project built by matan shani!</h2>
+    {% if not session %}
+    <p>i see you are not loged in...&#128533 </p>
+    <p>*to start navigating in the app you must 
+        <a href="/login">login</a>*</p>
+    {%else%}
+    now that you are loged in we can have some fun ! &#128526 
+    {% endif %}
 {% endblock body %}

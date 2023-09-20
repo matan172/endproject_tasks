@@ -1,7 +1,7 @@
 {% extends 'layout.html' %}
 
 {% block js %}
-    <script src="/static/js/tasks.js" type="text/babel"></script>
+    <script src="/static/js/tasks/tasks.js" type="text/babel"></script>
 {% endblock js %}
 
 {% block css %}
@@ -26,5 +26,5 @@
 
     </div>
     <hr>
-    <div id="taskboard" onload="showtasks()"></div>
+    <ul id="taskboard" onload="showtasks()"></ul>
 {% endblock body %}

@@ -5,9 +5,21 @@
 }
 .register {
     padding: 50px;
-    display: block;
+    display: grid;
+    border-top: 1px solid;
+    margin-top: 100px;
 }
 
 #registerform {
     display: block;
+}
+
+#signup {
+    width: 30%;
+    margin-top: 5px;
+    float: none;
+    background-color: limegreen;
+    border: 0.5px solid ;
+    border-radius: 15px;
+    font-family: Arial, Helvetica, sans-serif
 }

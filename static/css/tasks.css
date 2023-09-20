@@ -24,17 +24,47 @@ hr {
     border: 1px solid;
     width: 20%;
     border-radius: 10px;
-    height: 200px;
+    height: fit-content;
+    width: 80%;
 
 }
 .tasktitle {
     display: flex;
     justify-content: center;
-    padding: 0;
+    padding: 5px;
+    height: 50px;
+
 }
 
 #options{
     margin-bottom: -30px;
     padding: 5px;
-    display: -moz-grid-line
+    display: inline-block;
 }
+.taskdate >  p {
+    font-size: 10px;
+    margin-left: 10px;
+
+
+}
+
+.newtask {
+    /* background-color: rgb(165, 159, 159); */
+    display: flex;
+    justify-content: center;
+}
+.taskdesc > h3  {
+    margin-left: 15px;
+}
+
+.taskoptions {
+    float: right;
+    margin-top: -30px;
+    display: inline-block;
+}
+
+.tasks > form{
+    margin: 50px;
+}
+
+

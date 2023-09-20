@@ -1,22 +1,44 @@
 #navbar {
-    background-color: grey;
+    background-color: rgb(245, 237, 237);
     display: block;
     border: 1px solid;
-    display: flex;
+    display: block;
     justify-content: center;
     padding: 10px;
+    position: fixed;
+    width: 5%;
+    justify-content: left;
+    border-radius: 25px;
+
+
 }
 
+#navbar > div {
+    padding: 5px;
+}
+
+html {
+    padding: 0;
+}
+body {
+    padding: 5;
+    margin: 6px;
+}
 #funcbar {
     height: 30px;
     border: 1px solid ;
 }
 #main {
-    background-color: lightcoral;
+    background-color: rgb(185, 185, 185);
     width: 85%;
     min-height: 1000px;
     margin-left: 7.5%;
     margin-right: 7.5%;
     display: block;
 
+}
+
+
+body {
+    background-color: rgba(77, 172, 235, 0.363);
 }

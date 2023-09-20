@@ -17,11 +17,13 @@
 </head>
 <body>
     <div id="navbar">
-        <span id="homeButton"><a href="/"><button>home</button></a> </span>
+        <div id="homeButton"><a href="/"><button>home</button></a> </div>
         {% if session %}     
-        <img src="" alt="">
-        <span id="tasks"> <a href="/tasks"><button>tasks</button></a></span>
-        <span id="logout"><button onclick="logout()">logout</button></a></span>
+        <div id="tasks"> <a href="/tasks"><button>tasks</button></a></div>
+        <div id="logout"><button onclick="logout()">logout</button></a></div>
+        {%else%}
+        <div id="login"><a href="/login"><button>login</button></a></div>
+
         {% endif %}
     </div>
     <div id="main">
