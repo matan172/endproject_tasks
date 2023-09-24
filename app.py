@@ -1,6 +1,7 @@
 from flask import Flask,redirect,render_template,session,request
 from flask_session import Session
 import DBfuncs as db
+import DBfamily as family
 import datetime
 
 
@@ -138,7 +139,63 @@ def pulltasks():
         return redirect("/")
     
 
+
+# ------------family groups ---------------------
+
+
+@app.route("/family/creategroup")
+def createGroup():
+    if request.method == "POST":
+        selfid = session["id"]
+        itle = request.form.get("title")
+        if family.make_family(selfid=selfid,title=title):
+            return redirect('/familys')
+    
+    return "there was a problem"
+
+@app.route('/family/addmember')
+def addmember():
+    if request.method == 'POST':
+        groupid = request.form.get("groupid")
+        if session["id"] in family.pull_family(groupid)["heads"]:
+            memberid = request.form.get("memberid")
+            family.family_member(familyid=groupid,memberid=memberid)
+        return redirect(f"/family/{groupid}") 
+    return "there was a problem"
+
+@app.route('/family/addgrouptask')
+def add_group_task():
+    groupid = request.form.get("groupid")
+    title = request.form.get("title")
+    desc = request.form.get("desc")
+    task = {"title":title,"desc":desc}
+    family.family_task(familyid=groupid,task=task)
+
+
+
+
+# =========== family apis =======================
+@app.route('/api/familys/<id>')
+def get_family(id):
+    userid = session["id"]
+    fam = family.pull_family(str(id))
+    if (userid in fam["members"]) or (userid in fam["heads"]):
+        return fam
+    else:"you have no access to this family"
+
+
+@app.route('/api/familys/all')
+def getall_family():
+    id = session["id"]
+    user = db.pull_user(id)
+    userfamily_ids = user["familys"] 
+    return [family.pull_family(id) for id in userfamily_ids]
+    
+
+
 # ----------- production runserver ---------------
+
+
 
 
 if __name__ == "__main__":

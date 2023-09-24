@@ -31,6 +31,8 @@ def append_user(user:dict):
         temp = data["users"]
         data["index"]+=1
         user["id"] = str(data["index"])
+        user["familys"] = []
+        user["requests"] = []
         
         temp.append(user)
         write_json(data=data,filename=file_name)
@@ -61,27 +63,8 @@ def append_task(task:dict,user_id:str):
         user_data.append(task)
         write_json(data=data,filename=file_name)
 
-def append_task_familytask(task:dict,user_id:str):
-    """
-    appends famaily task dict
-    append to "./databases/03_family.json"
-    Return: None
-    """
-    
-    file_name = "./databases/03_family.json"
-    with open(file_name,'r') as f:
-        data = json.load(f)
-        try: # test if user already have a k:v pair in database
-            user_data = data[user_id]["tasks"]
-        except: # make a fresh k=user_id : v={"tasks":[],"index":0} 
-            data[user_id] = {"tasks":[],"index":0}
-            user_data = data[user_id]["tasks"]
-        task["id"] = data[user_id]["index"]
-        task["completed"] = False
-        task['date'] = datetime.datetime.now().strftime("%I:%M%p on %B %d, %Y")
-        data[user_id]["index"]+=1
-        user_data.append(task)
-        write_json(data=data,filename=file_name)
+
+
 
 
 def pull_user(info):
@@ -164,3 +147,26 @@ def complete_task(userid, taskid):
         write_json(filename="./databases/02_tasks.json",data=data)
 
  
+ 
+# under const
+def append_task_familytask(task:dict,user_id:str):
+    """
+    appends famaily task dict
+    append to "./databases/03_family.json"
+    Return: None
+    """
+    
+    file_name = "./databases/03_family.json"
+    with open(file_name,'r') as f:
+        data = json.load(f)
+        try: # test if user already have a k:v pair in database
+            user_data = data[user_id]["tasks"]
+        except: # make a fresh k=user_id : v={"tasks":[],"index":0} 
+            data[user_id] = {"tasks":[],"index":0}
+            user_data = data[user_id]["tasks"]
+        task["id"] = data[user_id]["index"]
+        task["completed"] = False
+        task['date'] = datetime.datetime.now().strftime("%I:%M%p on %B %d, %Y")
+        data[user_id]["index"]+=1
+        user_data.append(task)
+        write_json(data=data,filename=file_name)

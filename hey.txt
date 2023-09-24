@@ -1,14 +1,7 @@
 {
-    "1": {
-        "tasks": [
-            {
                 "title": "hey thisis task",
                 "desc": "",
                 "id": 0,
                 "completed": false,
                 "date": "11:55AM on September 24, 2023"
             }
-        ],
-        "index": 1
-    }
-}
