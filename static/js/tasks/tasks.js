@@ -10,7 +10,7 @@ function complete(task) {
                 <form action="/taskop" method="POST">
                     <input type="hidden" value={task.id} name="taskid" />
                     <input type="hidden" value="complete" name="option" />
-                    <input type="submit" value="complete" />
+                    <input className="complete-button" type="submit" value="complete" />
                 </form> </span>
         )}
 }
@@ -24,35 +24,23 @@ function taskcard (task) {
         color = "yellow"
     }
     return (
-        <li className="tasks" id={task.id} style={{backgroundColor: color}}>
-            <span className="tasktitle">
-                <h1>{task.title}</h1>
-
-            </span>
-               <hr />
-            <span className="taskdesc">
-                <h3>{task.desc}</h3>
-            </span>
-            <hr />
-            <span className="taskdate">
-                <p>{task.date}</p>
-
-            </span>
-            <span className="taskoptions">
+        <div className="card" style={{backgroundColor: color}}>
+      <div className="card-content">
+        <h2 className="card-title">{task.title}</h2>
+        <p className="card-description">{task.desc}</p>
+        <p className="card-date">Date: {task.date}</p>
+        <span className="taskoptions">
                 <span>
                  <form action="/taskop" method="POST">
 
                     <input type="hidden" value={task.id} name="taskid" />
                     <input type="hidden" value="delete" name="option" /> 
-                    <input type="submit" value="delete" />
+                    <input type="submit" value="delete" className="delete-button"/>
 
                 </form></span>
-                {complete(task)}
-                
-            
-                
-            </span>
-        </li>
+                {complete(task)} </span>
+      </div>
+    </div>
     )
 
 
@@ -104,17 +92,6 @@ function showtasks () {
     taskroot.render(<Showtasks />)
 }
 
-// function quete () {
-//    axios.get('https://zenquotes.io/api/random').then((res) => {let q =  res.data[0].h})
-//    return (
-//         <div>
-//             <p>you have completed nothing</p>
-//             {q}
-
-//         </div>
-//    )
-
-// }
 function Showcompletedtasks () {
     const [tasks, settasks] = React.useState([]);
     React.useEffect (()=> {axios({method: 'POST',url: '/completed',data: {}}).then((res) => settasks(res.data.tasks))},[]);
@@ -127,13 +104,6 @@ function Showcompletedtasks () {
 
 }  
 
-
-// const removetask = (task) => {
-//     axios({
-//         method: 'post',
-//         url: '/deletetask',
-//         data: {"id": task.id}
-//     })
 
 
 function Filtertasksfunc () {

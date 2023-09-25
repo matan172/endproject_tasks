@@ -1,4 +1,4 @@
-#navbar {
+#navbar{
     background-color: rgb(245, 237, 237);
     display: block;
     border: 1px solid;
@@ -12,6 +12,8 @@
 
 
 }
+
+
 
 #navbar > div {
     padding: 5px;

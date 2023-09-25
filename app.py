@@ -23,13 +23,13 @@ def homestr(string):
 
 @app.route('/')
 def home():
-    return render_template("home.html", session=session.get("id"))
+        return render_template("home.html", session=session.get("id"))
     
 
 @app.route('/tasks')
 def tasks():
     if session.get("id"):
-        return render_template("tasks.html", session=session.get("id"))
+        return render_template("index.html", session=session.get("id"))
     else: 
         return redirect("/login")
 
@@ -51,7 +51,7 @@ def login():
         else:
             return homestr("wrongusername")
          
-    return render_template("login.html")
+    return render_template("login.html",session = session)
 
 
 @app.route('/logout')
@@ -142,14 +142,26 @@ def pulltasks():
 
 # ------------family groups ---------------------
 
+@app.route('/family')
+def familys():
+    
+    return render_template('family.html', session=session)
 
-@app.route("/family/creategroup")
+
+@app.route('/family/removeme', methods = ["POST","GET"] )
+def removeme():
+    if request.method == "POST":
+        id = session["id"]
+        groupid = request.form.get("groupid")
+
+
+@app.route("/family/creategroup", methods=["POST","GET"])
 def createGroup():
     if request.method == "POST":
         selfid = session["id"]
-        itle = request.form.get("title")
+        title = request.form.get("title")
         if family.make_family(selfid=selfid,title=title):
-            return redirect('/familys')
+            return redirect('/family')
     
     return "there was a problem"
 
@@ -160,43 +172,65 @@ def addmember():
         if session["id"] in family.pull_family(groupid)["heads"]:
             memberid = request.form.get("memberid")
             family.family_member(familyid=groupid,memberid=memberid)
-        return redirect(f"/family/{groupid}") 
+        return redirect(f"/familys/{groupid}") 
     return "there was a problem"
 
-@app.route('/family/addgrouptask')
+@app.route('/family/completetask', methods=["POST","GET"])
+def complete_group_task():
+    if request.method == "POST":
+        taskid = request.form.get("taskid")
+        groupid = request.form.get("groupid")
+        family.complete_group_task(taskid=taskid, groupid=groupid)
+        return redirect(f"/familys") 
+
+
+@app.route('/familys/addgrouptask', methods=["POST","get"])
 def add_group_task():
-    groupid = request.form.get("groupid")
-    title = request.form.get("title")
-    desc = request.form.get("desc")
-    task = {"title":title,"desc":desc}
-    family.family_task(familyid=groupid,task=task)
+    if request.method == "POST":
+        groupid = int(request.form.get("groupid"))
+        title = request.form.get("title")
+        desc = request.form.get("desc")
+        task = {"title":title,"desc":desc}
+        family.family_task(familyid=groupid,task=task)
+        return redirect("/familys")
+
 
 
 
 
 # =========== family apis =======================
-@app.route('/api/familys/<id>')
-def get_family(id):
+@app.route('/api/familys/group',methods=["POST","GET"])
+def get_family():
+    groupid = request.json.get("group")["groupid"]
     userid = session["id"]
-    fam = family.pull_family(str(id))
+    fam = family.pull_family(str(groupid))
     if (userid in fam["members"]) or (userid in fam["heads"]):
+        print(fam)
         return fam
     else:"you have no access to this family"
 
 
-@app.route('/api/familys/all')
+@app.route('/api/familys/all', methods= ['POST','GET'] )
 def getall_family():
-    id = session["id"]
-    user = db.pull_user(id)
-    userfamily_ids = user["familys"] 
-    return [family.pull_family(id) for id in userfamily_ids]
+    if request.method == "POST":
+        id = session["id"]
+        user = db.pull_user(id)
+        userfamily_ids = user["familys"] 
+        return {'groups':[family.pull_family(id) for id in userfamily_ids],}
+
     
+@app.route('/session')
+def get_session():
+    if session:
+        return {"id":session["id"]}
 
 
 # ----------- production runserver ---------------
 
 
-
+@app.route('/test')
+def test():
+    return render_template("index.html")
 
 if __name__ == "__main__":
     app.run(debug=True)

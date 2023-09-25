@@ -1,6 +1,23 @@
 {
     "familytasks": {
-        
+        "8": {
+            "title": "hey",
+            "heads": [
+                "1"
+            ],
+            "members": [],
+            "tasks": [],
+            "index": 0
+        },
+        "9": {
+            "title": "thisis a fresh group",
+            "heads": [
+                "1"
+            ],
+            "members": [],
+            "tasks": [],
+            "index": 0
+        }
     },
-    "index": 0
+    "index": 10
 }

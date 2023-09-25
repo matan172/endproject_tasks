@@ -14,6 +14,10 @@ def make_request(userid:int,group_id):
             "title": pull_family(group_id)["title"]
             }
 
+def load_json(database):
+    with open(database,"r") as f:
+        return json.load(f)
+
 def make_family(selfid,title):
     database = "./databases/03_family.json"
     with open(database, 'r') as f:
@@ -35,6 +39,7 @@ def make_family(selfid,title):
         data["index"] =  index + 1
 
     write_json(data=data,filename=database)
+    family_to_userDB(userid=selfid,familyid=index)
     return True
 
 def family_member(familyid,memberid):
@@ -68,12 +73,17 @@ def family_task(familyid,task):
 
 def pull_family(familyid:str):
     with open("./databases/03_family.json",'r') as f:
-        return json.load(f)["familytasks"][familyid]
+        family = json.load(f)["familytasks"][familyid]
+        family["id"] = familyid
+        return family
 
 def family_to_userDB(userid,familyid):
     with open("./databases/01_users.json","r") as f:
         data = json.load(f)
-        data[userid]["familys"].append(str(familyid))
+        for user in data['users']:
+            if user['id'] == str(userid):
+                print(user['id'])
+                user["familys"].append(str(familyid))
     write_json(data=data,filename="./databases/01_users.json")
 
 
@@ -90,3 +100,25 @@ def accept_request(request:dict):
     if family_member(familyid=groupid,memberid=userid):
         family_to_userDB(userid=userid,familyid=groupid)
     return True
+
+def complete_group_task(groupid,taskid):
+    database = "./databases/03_family.json"
+    data = load_json(database=database)
+    for task in data["familytasks"][groupid]["tasks"]:
+        if task["id"] == taskid:
+            task["completed"] = True
+            break
+    write_json(database)
+    return True
+
+
+def remove_user_from_group (userid,groupid):
+    database = "./databases/03_family.json"
+    data = load_json(database=database)
+    data["familytasks"][groupid]["members"].remove(userid)
+    write_json(database=database,data=data)
+    return True
+   
+    
+
+

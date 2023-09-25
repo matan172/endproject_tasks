@@ -5,7 +5,10 @@
             "password": "123123123",
             "email": "matansss@gmail.com",
             "id": "1",
-            "familys": [],
+            "familys": [
+                "8",
+                "9"
+            ],
             "requests": []
         }
     ],

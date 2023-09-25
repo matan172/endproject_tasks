@@ -18,14 +18,18 @@
 <body>
     <div id="navbar">
         <div id="homeButton"><a href="/"><button>home</button></a> </div>
-        {% if session %}     
+        {% if session %}
+        <div id="group"><a href="/family"><button>groups</button></a></div>     
         <div id="tasks"> <a href="/tasks"><button>tasks</button></a></div>
+        <div id="tasks"> <a href="/notifis"><button>notifis</button></a></div>
         <div id="logout"><button onclick="logout()">logout</button></a></div>
         {%else%}
         <div id="login"><a href="/login"><button>login</button></a></div>
+        
 
         {% endif %}
     </div>
+    
     <div id="main">
     {% block body %}
         

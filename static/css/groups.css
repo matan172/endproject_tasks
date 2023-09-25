@@ -1,0 +1,45 @@
+/* Group Board styling */
+
+.board {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .column {
+    width: 22%;
+    background-color: #f2f2f2;
+    padding: 10px;
+    margin: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  /* Group Card styling */
+  
+  .card {
+    background-color: #fff;
+    padding: 10px;
+    margin: 5px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  /* Button styling */
+  
+  .btn {
+    padding: 5px 10px;
+    margin: 2px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .accept {
+    background-color: #4CAF50;
+    color: white;
+  }
+  
+  .remove {
+    background-color: #F44336;
+    color: white;
+  }
+  

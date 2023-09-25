@@ -1,0 +1,27 @@
+{% extends 'layout.html' %}
+
+{% block css %}
+    <link rel="stylesheet" href="../static/css/groups.css">
+{% endblock css %}
+    
+{% block js %}
+    <script src="/static/js/tasks/group.js" type="text/babel"></script>
+{% endblock js %}
+
+{% block body %} 
+    <span>
+    <button onclick="newgroup()">NewGroup</button>
+    </span>
+    <span>
+    <button onclick="allgroups()">My groups</button>
+    </span>
+    <hr>
+    <div id="family">
+        
+
+    </div>
+
+    
+   
+{% endblock body %}
+
